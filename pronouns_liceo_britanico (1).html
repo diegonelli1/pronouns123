@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pronouns — Liceo Británico</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #1b2a4a;
+    --navy2:   #243660;
+    --gold:    #c8972e;
+    --gold-lt: #fdf3e0;
+    --cream:   #faf8f4;
+    --white:   #ffffff;
+    --ink:     #1e1c18;
+    --muted:   #7a7468;
+    --border:  #ddd6c8;
+    --green:   #2d7a52;
+    --green-lt:#e3f4ec;
+    --red:     #b83c3c;
+    --red-lt:  #fce8e8;
+    --blue:    #2456a4;
+    --blue-lt: #e8eef8;
+    --r: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy);
+    color: white;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-inner {
+    display: flex; align-items: stretch;
+    max-width: 860px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .header-accent {
+    width: 8px; flex-shrink: 0;
+    background: var(--gold);
+  }
+  .header-text { padding: 40px 32px; flex: 1; }
+  .header-sup {
+    font-size: .68rem; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    line-height: 1.15; font-weight: 700;
+  }
+  .header h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .header-sub { margin-top: 10px; font-size: .88rem; color: rgba(255,255,255,.6); }
+  .header-pills {
+    display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px;
+  }
+  .header-pill {
+    font-size: .7rem; font-weight: 600; letter-spacing: .5px;
+    border: 1px solid rgba(200,151,46,.45);
+    border-radius: 20px; padding: 4px 12px; color: var(--gold);
+  }
+  .header-deco {
+    position: absolute; right: -30px; top: -30px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 40px solid rgba(200,151,46,.06);
+    pointer-events: none;
+  }
+
+  /* ── REFERENCE TABLE ── */
+  .page { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+
+  .ref-section { margin-top: 44px; }
+  .ref-title {
+    font-size: .68rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .ref-title::after { content:''; flex:1; height:1px; background: var(--border); }
+
+  .ref-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--r); overflow: hidden;
+    border: 1.5px solid var(--border);
+    font-size: .9rem;
+  }
+  .ref-table thead { background: var(--navy); color: white; }
+  .ref-table thead th {
+    padding: 12px 16px; text-align: left;
+    font-size: .72rem; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .ref-table td {
+    padding: 11px 16px; border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table tr:nth-child(even) td { background: #faf8f4; }
+  .ref-table .pronoun {
+    font-weight: 700; color: var(--navy2); font-size: .97rem;
+  }
+  .ref-table .example { font-style: italic; color: var(--muted); font-size: .83rem; }
+  .ref-table .tag {
+    display: inline-block;
+    font-size: .65rem; font-weight: 700; letter-spacing: .5px;
+    text-transform: uppercase; border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .tag-sub  { background: var(--blue-lt);  color: var(--blue); }
+  .tag-poss { background: var(--gold-lt);  color: #7a4e10; }
+  .tag-obj  { background: var(--green-lt); color: var(--green); }
+
+  /* ── SECTION HEADS ── */
+  .section { margin-top: 52px; }
+  .section-head {
+    display: flex; align-items: flex-end;
+    gap: 14px; margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--border);
+    line-height: 1; flex-shrink: 0;
+  }
+  .section-info {}
+  .section-info h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.2rem; line-height: 1.2;
+    color: var(--navy);
+  }
+  .section-info p { font-size: .8rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+
+  /* ── INSTRUCTION BOX ── */
+  .instr {
+    background: var(--gold-lt); border-left: 3px solid var(--gold);
+    border-radius: 0 var(--r) var(--r) 0;
+    padding: 10px 16px; font-size: .84rem; color: #6a4515;
+    margin-bottom: 18px;
+  }
+
+  /* ── EXERCISE CARD ── */
+  .ex-list { display: flex; flex-direction: column; gap: 12px; }
+  .ex-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--r); padding: 16px 20px;
+  }
+  .ex-card .q {
+    font-size: .96rem; font-weight: 500; line-height: 1.6;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+  }
+  .ex-card .q-num { font-weight: 700; color: var(--muted); margin-right: 4px; }
+
+  /* blank input */
+  .b-input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .93rem; font-weight: 600;
+    border: none; border-bottom: 2.5px solid var(--navy);
+    background: transparent; outline: none;
+    width: 100px; padding: 0 4px 1px;
+    color: var(--blue); transition: border-color .2s;
+  }
+  .b-input:focus { border-color: var(--gold); }
+  .b-input.ok  { border-color: var(--green); color: var(--green); }
+  .b-input.err { border-color: var(--red);   color: var(--red); }
+
+  /* show answer */
+  .show-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .72rem; font-weight: 600; letter-spacing: .4px;
+    text-transform: uppercase; border: 1.5px solid var(--border);
+    border-radius: 6px; background: transparent; color: var(--muted);
+    padding: 4px 12px; cursor: pointer; margin-top: 10px;
+    transition: all .18s; display: block;
+  }
+  .show-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .ans-box {
+    display: none; margin-top: 8px;
+    background: var(--green-lt); border-left: 3px solid var(--green);
+    border-radius: 0 6px 6px 0; padding: 7px 14px;
+    font-size: .86rem; color: var(--green); font-weight: 600;
+  }
+  .ans-box.on { display: block; }
+
+  /* MC buttons */
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .mc-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .88rem; font-weight: 500;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: white; padding: 7px 18px;
+    cursor: pointer; transition: all .18s;
+  }
+  .mc-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .mc-btn.ok  { background: var(--green-lt); border-color: var(--green); color: var(--green); font-weight: 600; }
+  .mc-btn.err { background: var(--red-lt);   border-color: var(--red);   color: var(--red); }
+  .mc-btn:disabled { cursor: default; }
+  .mc-fb { font-size: .8rem; margin-top: 6px; font-weight: 600; }
+  .mc-fb.ok  { color: var(--green); }
+  .mc-fb.err { color: var(--red); }
+
+  /* check + score */
+  .check-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .88rem; font-weight: 600;
+    background: var(--navy); color: white;
+    border: none; border-radius: 8px;
+    padding: 10px 26px; cursor: pointer;
+    margin-top: 18px; transition: opacity .18s;
+  }
+  .check-btn:hover { opacity: .82; }
+  .score { margin-top: 8px; font-size: .85rem; font-weight: 600; color: var(--muted); min-height: 20px; }
+  .score.good { color: var(--green); }
+  .score.mid  { color: #b07a10; }
+  .score.low  { color: var(--red); }
+
+  /* matching */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-top: 8px; }
+  .match-col  { display: flex; flex-direction: column; gap: 8px; }
+  .m-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .88rem; font-weight: 500;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: white; padding: 10px 14px;
+    cursor: pointer; text-align: left; transition: all .18s;
+  }
+  .m-btn:hover  { border-color: var(--navy); }
+  .m-btn.sel    { border-color: var(--gold); background: var(--gold-lt); }
+  .m-btn.done   { border-color: var(--green); background: var(--green-lt); color: var(--green); font-weight: 600; cursor: default; }
+  .m-btn.shake  { animation: shake .3s; border-color: var(--red); background: var(--red-lt); }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+  /* rewrite */
+  .rw-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--r); padding: 16px 20px; }
+  .rw-original { font-size: .88rem; color: var(--muted); margin-bottom: 10px; font-style: italic; }
+  .rw-input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .93rem; width: 100%;
+    border: 1.5px solid var(--border); border-radius: 7px;
+    padding: 8px 12px; outline: none;
+    transition: border-color .2s;
+  }
+  .rw-input:focus { border-color: var(--gold); }
+
+  /* error correction */
+  .err-card { background: var(--red-lt); border: 1.5px solid #e8b0b0; border-radius: var(--r); padding: 16px 20px; }
+  .err-sentence { font-size: .96rem; font-weight: 500; margin-bottom: 10px; }
+  .err-wrong { text-decoration: line-through; color: var(--red); font-weight: 700; }
+
+  /* speaking */
+  .speak-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:580px){
+    .speak-grid { grid-template-columns: 1fr; }
+    .match-grid { grid-template-columns: 1fr; }
+    .header-inner { flex-direction: column; }
+    .header-accent { width: 100%; height: 6px; }
+  }
+  .speak-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--r); padding: 18px;
+  }
+  .speak-label {
+    font-size: .65rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+  }
+  .speak-card p { font-size: .9rem; line-height: 1.55; }
+
+  /* divider */
+  hr { border: none; border-top: 1.5px solid var(--border); margin-top: 52px; }
+
+  /* footer */
+  footer {
+    text-align: center; padding: 24px 20px;
+    font-size: .78rem; color: var(--muted); font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <div class="header-accent"></div>
+    <div class="header-text">
+      <div class="header-sup">Liceo Británico · Saturday Beginners</div>
+      <h1>Pronouns &amp; <em>Possessives</em></h1>
+      <div class="header-sub">Personal pronouns · Possessive adjectives · Object pronouns</div>
+      <div class="header-pills">
+        <span class="header-pill">I / you / he / she / it / we / they</span>
+        <span class="header-pill">my / your / his / her…</span>
+        <span class="header-pill">me / him / her / us…</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ══ REFERENCE TABLE ══ -->
+  <div class="ref-section">
+    <div class="ref-title">Quick Reference</div>
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th>Person</th>
+          <th>Subject <span style="opacity:.6">(I do…)</span></th>
+          <th>Possessive <span style="opacity:.6">(my…)</span></th>
+          <th>Object <span style="opacity:.6">(… me)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1st singular</td>
+          <td><span class="pronoun">I</span><br><span class="example">I am a student.</span></td>
+          <td><span class="pronoun">my</span><br><span class="example">my book</span></td>
+          <td><span class="pronoun">me</span><br><span class="example">Call me!</span></td>
+        </tr>
+        <tr>
+          <td>2nd singular</td>
+          <td><span class="pronoun">you</span><br><span class="example">You speak English.</span></td>
+          <td><span class="pronoun">your</span><br><span class="example">your pen</span></td>
+          <td><span class="pronoun">you</span><br><span class="example">I see you.</span></td>
+        </tr>
+        <tr>
+          <td>3rd singular ♂</td>
+          <td><span class="pronoun">he</span><br><span class="example">He works here.</span></td>
+          <td><span class="pronoun">his</span><br><span class="example">his car</span></td>
+          <td><span class="pronoun">him</span><br><span class="example">I know him.</span></td>
+        </tr>
+        <tr>
+          <td>3rd singular ♀</td>
+          <td><span class="pronoun">she</span><br><span class="example">She is a doctor.</span></td>
+          <td><span class="pronoun">her</span><br><span class="example">her bag</span></td>
+          <td><span class="pronoun">her</span><br><span class="example">Tell her.</span></td>
+        </tr>
+        <tr>
+          <td>3rd singular ◻</td>
+          <td><span class="pronoun">it</span><br><span class="example">It is big.</span></td>
+          <td><span class="pronoun">its</span><br><span class="example">its colour</span></td>
+          <td><span class="pronoun">it</span><br><span class="example">I like it.</span></td>
+        </tr>
+        <tr>
+          <td>1st plural</td>
+          <td><span class="pronoun">we</span><br><span class="example">We are friends.</span></td>
+          <td><span class="pronoun">our</span><br><span class="example">our teacher</span></td>
+          <td><span class="pronoun">us</span><br><span class="example">Help us!</span></td>
+        </tr>
+        <tr>
+          <td>2nd plural</td>
+          <td><span class="pronoun">you</span><br><span class="example">You are all here.</span></td>
+          <td><span class="pronoun">your</span><br><span class="example">your class</span></td>
+          <td><span class="pronoun">you</span><br><span class="example">I see you all.</span></td>
+        </tr>
+        <tr>
+          <td>3rd plural</td>
+          <td><span class="pronoun">they</span><br><span class="example">They live nearby.</span></td>
+          <td><span class="pronoun">their</span><br><span class="example">their house</span></td>
+          <td><span class="pronoun">them</span><br><span class="example">I know them.</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 1 — MULTIPLE CHOICE ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <div class="section-info">
+        <h2>Choose the correct pronoun</h2>
+        <p>Subject pronouns · click the best option</p>
+      </div>
+    </div>
+    <div class="instr">📌 Choose the correct word for each sentence.</div>
+    <div class="ex-list" id="s1"></div>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 2 — FILL IN (possessives) ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <div class="section-info">
+        <h2>Fill in the possessive adjective</h2>
+        <p>my · your · his · her · its · our · their</p>
+      </div>
+    </div>
+    <div class="instr">📌 Complete each sentence with the correct possessive adjective.</div>
+    <div class="ex-list" id="s2"></div>
+    <button class="check-btn" onclick="checkFill('s2','sc2')">Check answers</button>
+    <div class="score" id="sc2"></div>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 3 — FILL IN (object pronouns) ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <div class="section-info">
+        <h2>Fill in the object pronoun</h2>
+        <p>me · you · him · her · it · us · them</p>
+      </div>
+    </div>
+    <div class="instr">📌 Replace the underlined words with the correct object pronoun.</div>
+    <div class="ex-list" id="s3"></div>
+    <button class="check-btn" onclick="checkFill('s3','sc3')">Check answers</button>
+    <div class="score" id="sc3"></div>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 4 — MATCHING ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <div class="section-info">
+        <h2>Match the sentence halves</h2>
+        <p>All three types mixed</p>
+      </div>
+    </div>
+    <div class="instr">📌 Click a beginning on the left, then its ending on the right.</div>
+    <div class="match-grid" id="s4"></div>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 5 — ERROR CORRECTION ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <div class="section-info">
+        <h2>Spot the mistake!</h2>
+        <p>One word is wrong in each sentence — find it and correct it</p>
+      </div>
+    </div>
+    <div class="instr">📌 Each sentence has one mistake. Click <em>Show answer</em> after you try.</div>
+    <div class="ex-list" id="s5"></div>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 6 — MIXED FILL ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <div class="section-info">
+        <h2>Mixed gap-fill</h2>
+        <p>Subject · possessive · object — all together!</p>
+      </div>
+    </div>
+    <div class="instr">📌 Complete each sentence. Decide which type of pronoun you need!</div>
+    <div class="ex-list" id="s6"></div>
+    <button class="check-btn" onclick="checkFill('s6','sc6')">Check answers</button>
+    <div class="score" id="sc6"></div>
+  </div>
+
+  <hr>
+
+  <!-- ══ SECTION 7 — SPEAKING ══ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">07</div>
+      <div class="section-info">
+        <h2>Let's Talk! 💬</h2>
+        <p>Use pronouns and possessives naturally</p>
+      </div>
+    </div>
+    <div class="instr">📌 Answer these questions in full sentences. Try to use at least one pronoun or possessive in each answer!</div>
+    <div class="speak-grid" id="s7"></div>
+  </div>
+
+</div>
+
+<footer>Liceo Británico · Saturday Beginners · Good luck — you've got this! 🌟</footer>
+
+<script>
+/* ═══════════════════ DATA ═══════════════════ */
+
+// S1 — MC: subject pronouns
+const s1Data = [
+  { q: "___ am a student at the Liceo Británico.", opts:["I","Me","My"], ans:"I" },
+  { q: "María lives in Palermo. ___ speaks English and Spanish.", opts:["He","She","Her"], ans:"She" },
+  { q: "Pedro and I are classmates. ___ study together on Saturdays.", opts:["They","We","Us"], ans:"We" },
+  { q: "This is my dog. ___ is very friendly.", opts:["He","It","Its"], ans:"It" },
+  { q: "Tom and Lisa are late. ___ always arrive at 9:05!", opts:["We","Them","They"], ans:"They" },
+  { q: "What do ___ do on weekends?", opts:["your","you","her"], ans:"you" },
+  { q: "My brother works in a bank. ___ likes his job.", opts:["She","Him","He"], ans:"He" },
+  { q: "___ is cold today! I need a jacket.", opts:["Its","It","He"], ans:"It" },
+];
+
+// S2 — fill: possessive adjectives
+const s2Data = [
+  { q:"I have a sister. ___ name is Valentina.", ans:"Her", hint:"sister = she → her" },
+  { q:"We live in Belgrano. ___ apartment is on the 4th floor.", ans:"Our", hint:"we → our" },
+  { q:"Tom has a new job. ___ office is in Microcentro.", ans:"His", hint:"Tom = he → his" },
+  { q:"You have a great teacher! Is ___ class always this fun?", ans:"your", hint:"you → your" },
+  { q:"The dog is hungry. ___ bowl is empty.", ans:"Its", hint:"dog = it → its" },
+  { q:"Ana and Pedro are on holiday. ___ hotel is in Bariloche.", ans:"Their", hint:"they → their" },
+  { q:"I forgot ___ keys at home again!", ans:"my", hint:"I → my" },
+  { q:"The children love ___ school.", ans:"their", hint:"children = they → their" },
+];
+
+// S3 — fill: object pronouns
+const s3Data = [
+  { q:"I don't know <u>Pedro</u>. Can you introduce ___?", ans:"him", hint:"Pedro = he → him" },
+  { q:"My mum calls <u>my sister and me</u> every day. She calls ___ at 8 p.m.", ans:"us", hint:"my sister and me = we → us" },
+  { q:"I love <u>this song</u>! I listen to ___ all the time.", ans:"it", hint:"song = it → it" },
+  { q:"Can you help me understand this activity? I can't understand ___.", ans:"it" , hint:"this activity = it → it" },
+  { q:"I really like <u>Ana</u>. I see ___ every Saturday.", ans:"her", hint:"Ana = she → her" },
+  { q:"These exercises are great. Our teacher gives ___ every week.", ans:"them", hint:"exercises = they → them" },
+  { q:"My brother never listens to <u>my parents and me</u>. He ignores ___!", ans:"us", hint:"my parents and me = we → us" },
+  { q:"Do you know <u>my brother</u>? I can call ___ right now.", ans:"him", hint:"brother = he → him" },
+];
+
+// S4 — matching
+const s4Left  = [
+  "She is my best friend —",
+  "We love our teacher.",
+  "I don't know him.",
+  "Can you help me?",
+  "They lost their bags",
+  "He always calls her",
+];
+const s4Right = [
+  "at the airport yesterday.",
+  "She teaches us so well.",
+  "Who is he?",
+  "I can't do it alone.",
+  "after work every day.",
+  "I see her every Saturday.",
+];
+const s4Pairs = {
+  "She is my best friend —":    "I see her every Saturday.",
+  "We love our teacher.":        "She teaches us so well.",
+  "I don't know him.":           "Who is he?",
+  "Can you help me?":            "I can't do it alone.",
+  "They lost their bags":        "at the airport yesterday.",
+  "He always calls her":         "after work every day.",
+};
+
+// S5 — error correction
+const s5Data = [
+  { wrong:"Me am happy to be here.", correct:"I am happy to be here.", error:"Me", fix:"I", note:"Subject pronoun → I" },
+  { wrong:"This is my friend. I love she.", correct:"I love her.", error:"she", fix:"her", note:"Object position → her" },
+  { wrong:"Tom and Pedro have a car. Their car is him.", correct:"Their car is theirs / it's their car.", error:"him", fix:"their", note:"Possessive → their (or use: it's their car)" },
+  { wrong:"We are tired. Help we!", correct:"Help us!", error:"we", fix:"us", note:"Object pronoun → us" },
+  { wrong:"She lost her bag. I found it and gave it to she.", correct:"…gave it to her.", error:"she", fix:"her", note:"After a preposition → object pronoun: her" },
+  { wrong:"My sister and me go to the gym on Mondays.", correct:"My sister and I go to the gym…", error:"me", fix:"I", note:"Subject position → I" },
+];
+
+// S6 — mixed fill
+const s6Data = [
+  { q:"___ is my best friend. I really like ___.", blanks:[{ans:"She"},{ans:"her"}], ans:"She / her", hint:"Subject + object" },
+  { q:"Pedro has a dog. ___ name is Max and ___ loves ___.", blanks:[{ans:"Its"},{ans:"he",alt:["Pedro"]},{ans:"him",alt:["it"]}], ans:"Its / he / him", hint:"Possessive + subject + object" },
+  { q:"Can ___ help ___? ___ don't understand.", blanks:[{ans:"you"},{ans:"me"},{ans:"I"}], ans:"you / me / I", hint:"Subject + object + subject" },
+  { q:"We love ___ teacher. ___ is great and ___ learn so much from ___.", blanks:[{ans:"our"},{ans:"She"},{ans:"we"},{ans:"her"}], ans:"our / She / we / her", hint:"Possessive + subject + subject + object" },
+  { q:"Ana and Tom are late. ___ forgot ___ books at home. I can lend ___ mine.", blanks:[{ans:"They"},{ans:"their"},{ans:"them"}], ans:"They / their / them", hint:"Subject + possessive + object" },
+];
+
+// S7 — speaking
+const s7Data = [
+  { label:"About You 👤", q:"Tell me about yourself. Where do you live? What do you do?" },
+  { label:"Your Family 👨‍👩‍👧", q:"Describe one person in your family. Use he/she, his/her." },
+  { label:"Your Things 🎒", q:"What's in your bag? Say 3 things and use 'my'." },
+  { label:"Someone You Know 🤝", q:"Think of a friend or colleague. Describe them using he/she and his/her." },
+];
+
+/* ═══════════════════ RENDER ═══════════════════ */
+
+// Section 1 — MC
+function renderMC(id, data) {
+  const c = document.getElementById(id);
+  data.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-card';
+    div.innerHTML = `
+      <div class="q"><span class="q-num">${i+1}.</span> ${item.q}</div>
+      <div class="mc-opts">${item.opts.map(o =>
+        `<button class="mc-btn" onclick="pickMC(this,'${o}','${item.ans}','fb${id}${i}')">${o}</button>`
+      ).join('')}</div>
+      <div class="mc-fb" id="fb${id}${i}"></div>`;
+    c.appendChild(div);
+  });
+}
+
+function pickMC(btn, chosen, correct, fbId) {
+  const opts = btn.closest('.mc-opts');
+  opts.querySelectorAll('.mc-btn').forEach(b => b.disabled = true);
+  const fb = document.getElementById(fbId);
+  if(chosen === correct) {
+    btn.classList.add('ok');
+    fb.textContent = '✔ Correct!'; fb.className = 'mc-fb ok';
+  } else {
+    btn.classList.add('err');
+    fb.textContent = `✘ The answer is: ${correct}`; fb.className = 'mc-fb err';
+    opts.querySelectorAll('.mc-btn').forEach(b => { if(b.textContent === correct) b.classList.add('ok'); });
+  }
+}
+
+// Sections 2, 3, 6 — fill
+function renderFill(id, data) {
+  const c = document.getElementById(id);
+  data.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-card';
+
+    // Build HTML: replace each ___ with an input
+    let qHtml = item.q;
+    const blanks = item.blanks || [{ ans: item.ans.split(' / ')[0] }];
+    // Use simple replacement for single-blank, array for multi-blank
+    if(item.blanks) {
+      let k = 0;
+      qHtml = item.q.replace(/___/g, () => {
+        const b = item.blanks[k] || {};
+        const a = (b.ans||'').toLowerCase().trim();
+        const alt = (b.alt||[]).map(x=>x.toLowerCase().trim()).join('|');
+        k++;
+        return `<input class="b-input" type="text" data-ans="${a}" data-alt="${alt}" placeholder="...">`;
+      });
+    } else {
+      const a = item.ans.toLowerCase().trim();
+      qHtml = item.q.replace('___', `<input class="b-input" type="text" data-ans="${a}" placeholder="...">`);
+    }
+
+    const hint = item.hint ? `<div class="ans-box" id="ans-${id}-${i}">✔ ${item.ans}${item.hint ? ' <span style="font-weight:400;color:#558;font-size:.8rem">— '+item.hint+'</span>' : ''}</div>` : `<div class="ans-box" id="ans-${id}-${i}">✔ ${item.ans}</div>`;
+
+    div.innerHTML = `<div class="q"><span class="q-num">${i+1}.</span> ${qHtml}</div>
+      <button class="show-btn" onclick="toggleAns('ans-${id}-${i}',this)">Show answer</button>
+      ${hint}`;
+    c.appendChild(div);
+  });
+}
+
+function toggleAns(id, btn) {
+  const box = document.getElementById(id);
+  box.classList.toggle('on');
+  btn.textContent = box.classList.contains('on') ? 'Hide answer' : 'Show answer';
+}
+
+function checkFill(id, scoreId) {
+  const c = document.getElementById(id);
+  let tot = 0, cor = 0;
+  c.querySelectorAll('.b-input').forEach(inp => {
+    tot++;
+    inp.classList.remove('ok','err');
+    const val = inp.value.toLowerCase().trim();
+    const ans = inp.dataset.ans;
+    const alts = inp.dataset.alt ? inp.dataset.alt.split('|').filter(Boolean) : [];
+    const isOk = val === ans || alts.includes(val);
+    if(isOk) { inp.classList.add('ok'); cor++; }
+    else inp.classList.add('err');
+  });
+  const el = document.getElementById(scoreId);
+  const pct = Math.round(cor/tot*100);
+  el.textContent = `${cor} / ${tot} correct (${pct}%)`;
+  el.className = 'score ' + (pct===100?'good':pct>=60?'mid':'low');
+}
+
+// Section 4 — matching
+function renderMatch(id, lefts, rights, pairs) {
+  const c = document.getElementById(id);
+  const shuffled = [...rights].sort(() => Math.random()-.5);
+  let lHTML = '', rHTML = '';
+  lefts.forEach(l => lHTML += `<button class="m-btn" data-side="L" data-val="${l}" onclick="mClick(this,'${id}')">${l}</button>`);
+  shuffled.forEach(r => rHTML += `<button class="m-btn" data-side="R" data-val="${r}" onclick="mClick(this,'${id}')">${r}</button>`);
+  c.innerHTML = `<div class="match-col">${lHTML}</div><div class="match-col">${rHTML}</div>`;
+}
+
+const mState = {};
+function mClick(btn, id) {
+  if(btn.classList.contains('done')) return;
+  if(!mState[id]) mState[id] = {};
+  const ms = mState[id];
+  if(btn.dataset.side==='L') { if(ms.L) ms.L.classList.remove('sel'); ms.L=btn; btn.classList.add('sel'); }
+  else                        { if(ms.R) ms.R.classList.remove('sel'); ms.R=btn; btn.classList.add('sel'); }
+  if(ms.L && ms.R) {
+    const ok = s4Pairs[ms.L.dataset.val] === ms.R.dataset.val;
+    if(ok) {
+      ms.L.classList.add('done'); ms.L.classList.remove('sel');
+      ms.R.classList.add('done'); ms.R.classList.remove('sel');
+    } else {
+      const l=ms.L, r=ms.R;
+      l.classList.add('shake'); r.classList.add('shake');
+      setTimeout(()=>{ l.classList.remove('shake','sel'); r.classList.remove('shake','sel'); },400);
+    }
+    ms.L=null; ms.R=null;
+  }
+}
+
+// Section 5 — error correction
+function renderErrors(id, data) {
+  const c = document.getElementById(id);
+  data.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-card';
+    const wrongHtml = item.wrong;
+    div.innerHTML = `
+      <div class="q"><span class="q-num">${i+1}.</span> ${wrongHtml}</div>
+      <button class="show-btn" onclick="toggleAns('e-ans-${i}',this)">Show correction</button>
+      <div class="ans-box" id="e-ans-${i}">
+        ✔ <strong>${item.fix}</strong> instead of <em>${item.error}</em> — ${item.note}<br>
+        <span style="color:#1a5c36">→ ${item.correct}</span>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+// Section 7 — speaking
+function renderSpeaking(id, data) {
+  const c = document.getElementById(id);
+  data.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'speak-card';
+    div.innerHTML = `<div class="speak-label">${item.label}</div><p>${item.q}</p>`;
+    c.appendChild(div);
+  });
+}
+
+/* ═══════════════════ INIT ═══════════════════ */
+renderMC('s1', s1Data);
+renderFill('s2', s2Data);
+renderFill('s3', s3Data);
+renderMatch('s4', s4Left, s4Right, s4Pairs);
+renderErrors('s5', s5Data);
+renderFill('s6', s6Data);
+renderSpeaking('s7', s7Data);
+</script>
+</body>
+</html>
